@@ -1,13 +1,13 @@
 package br.com.ryan.gestao_projetos.controller;
 
+import br.com.ryan.gestao_projetos.dto.ProjetoAtualizarRequest;
 import br.com.ryan.gestao_projetos.dto.ProjetoRequest;
 import br.com.ryan.gestao_projetos.dto.ProjetoResponse;
 import br.com.ryan.gestao_projetos.dto.TarefaResponse;
-import br.com.ryan.gestao_projetos.model.Projeto;
 import br.com.ryan.gestao_projetos.service.ProjetoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,7 @@ public class ProjetoController {
     private ProjetoService projetoService;
 
     @PostMapping
-    public ResponseEntity<Projeto> criarProjeto(@RequestBody ProjetoRequest projetoRequest){
+    public ResponseEntity<ProjetoResponse> criarProjeto(@Valid @RequestBody ProjetoRequest projetoRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(projetoService.criarProjeto(projetoRequest));
     }
 
@@ -35,7 +35,7 @@ public class ProjetoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjetoResponse> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoRequest projetoRequest){
+    public ResponseEntity<ProjetoResponse> atualizarProjeto(@PathVariable Long id, @RequestBody ProjetoAtualizarRequest projetoRequest){
         return ResponseEntity.ok(projetoService.atualizarProjeto(id, projetoRequest));
     }
 
