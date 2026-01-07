@@ -15,7 +15,7 @@ public class TarefaController {
     @Autowired
     private TarefaService tarefaService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Tarefa> save(@RequestBody TarefaRequest tarefaRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaService.AdicionarTarefa(tarefaRequest));
     }
