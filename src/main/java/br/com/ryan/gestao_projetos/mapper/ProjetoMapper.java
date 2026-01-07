@@ -8,6 +8,7 @@ import br.com.ryan.gestao_projetos.model.Tarefa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -20,7 +21,8 @@ public class ProjetoMapper {
         Projeto projeto = new Projeto();
         projeto.setNome(projetoRequest.nome());
         projeto.setDescricao(projetoRequest.descricao());
-        projeto.setDataInicio(projetoRequest.dataInicio());
+        if (projetoRequest.dataInicio().isBefore(LocalDate.now())) throw new IllegalArgumentException("Data de inicio invalida");
+        else projeto.setDataInicio(projetoRequest.dataInicio());
         List<Tarefa> tarefas = projetoRequest.tarefas().stream().map(t -> {
             Tarefa tarefa = tarefasMapper.toTarefa(t);
             tarefa.setProjeto(projeto);

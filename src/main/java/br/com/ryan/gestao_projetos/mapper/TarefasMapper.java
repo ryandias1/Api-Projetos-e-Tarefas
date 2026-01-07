@@ -2,16 +2,21 @@ package br.com.ryan.gestao_projetos.mapper;
 
 import br.com.ryan.gestao_projetos.dto.TarefaRequest;
 import br.com.ryan.gestao_projetos.dto.TarefaResponse;
+import br.com.ryan.gestao_projetos.enums.Status;
 import br.com.ryan.gestao_projetos.model.Tarefa;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class TarefasMapper {
     public Tarefa toTarefa(TarefaRequest tarefaRequest) {
         Tarefa tarefa = new Tarefa();
         tarefa.setTitulo(tarefaRequest.titulo());
-        tarefa.setStatus(tarefaRequest.status());
-        tarefa.setPrazo(tarefaRequest.prazo());
+        if (tarefaRequest.status() != null) tarefa.setStatus(tarefaRequest.status());
+        else tarefa.setStatus(Status.PENDENTE);
+        if (tarefaRequest.prazo().isBefore(LocalDate.now())) throw new IllegalArgumentException("Prazo de tarefa invalido");
+        else tarefa.setPrazo(tarefaRequest.prazo());
         return tarefa;
     }
 
