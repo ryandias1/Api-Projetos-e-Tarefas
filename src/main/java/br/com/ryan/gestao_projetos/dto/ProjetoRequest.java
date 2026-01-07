@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ProjetoRequest(
-        @NotBlank(message = "O nome do projeto não pode ser nulo")
         String nome,
         String descricao,
         LocalDate dataInicio,
