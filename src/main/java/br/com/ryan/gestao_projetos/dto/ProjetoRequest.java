@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record ProjetoRequest(
+        @NotBlank(message = "Nome é obrigatório")
         String nome,
         String descricao,
         LocalDate dataInicio,
