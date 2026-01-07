@@ -21,8 +21,7 @@ public class ProjetoMapper {
         Projeto projeto = new Projeto();
         projeto.setNome(projetoRequest.nome());
         projeto.setDescricao(projetoRequest.descricao());
-        if (projetoRequest.dataInicio().isBefore(LocalDate.now())) throw new IllegalArgumentException("Data de inicio invalida");
-        else projeto.setDataInicio(projetoRequest.dataInicio());
+        projeto.setDataInicio(projetoRequest.dataInicio());
         List<Tarefa> tarefas = projetoRequest.tarefas().stream().map(t -> {
             Tarefa tarefa = tarefasMapper.toTarefa(t);
             tarefa.setProjeto(projeto);

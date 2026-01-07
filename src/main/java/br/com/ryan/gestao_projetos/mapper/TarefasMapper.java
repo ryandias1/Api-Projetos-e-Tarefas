@@ -15,8 +15,7 @@ public class TarefasMapper {
         tarefa.setTitulo(tarefaRequest.titulo());
         if (tarefaRequest.status() != null) tarefa.setStatus(tarefaRequest.status());
         else tarefa.setStatus(Status.PENDENTE);
-        if (tarefaRequest.prazo().isBefore(LocalDate.now())) throw new IllegalArgumentException("Prazo de tarefa invalido");
-        else tarefa.setPrazo(tarefaRequest.prazo());
+        tarefa.setPrazo(tarefaRequest.prazo());
         return tarefa;
     }
 
